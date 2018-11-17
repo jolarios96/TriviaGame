@@ -26,6 +26,9 @@ body {
     width: 800px;
     height: 600px;
 
+    min-width: 600px;
+    min-height: 450px;
+
     padding: 0;
     margin: 0 auto;
 
@@ -37,7 +40,12 @@ body {
     margin: 0 auto;
 }
 
-#logo{
+#title {
+    width: 200px;
+    height: 150px;
+}
+
+#question {
     width:500px;
     height: 300px;
 }
