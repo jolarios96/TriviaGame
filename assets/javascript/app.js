@@ -20,10 +20,10 @@ function createButtons() {
     console.log('Calling createButtons() -- --')
     var newBtn;
 
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 4; i++) {
         console.log('Generating button-' + (i + 1));
         newBtn = $('<button>');
-        newBtn.addClass('app-buttons');
+        newBtn.addClass('app-buttons centered');
         newBtn.attr('id', 'btn-' + (i + 1));
         newBtn.text('Button-' + (i + 1));
         $('#button-container').append(newBtn);

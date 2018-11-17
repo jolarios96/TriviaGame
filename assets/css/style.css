@@ -14,8 +14,9 @@ body {
 
     min-width: 800px;
     min-height: 600px;
-
-    margin: 0 auto;
+    
+    padding: 25px 0;
+    margin: 50px auto;
 
     background-color: gainsboro;
 
@@ -44,6 +45,13 @@ body {
 .centered {
     display: block;
     margin: 0 auto;
+}
+
+.app-buttons {
+    margin: 20px auto;
+
+    width: 80%;
+    height: 50px;
 }
 
 h1 {
