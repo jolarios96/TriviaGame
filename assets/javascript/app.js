@@ -3,7 +3,9 @@
 // to make resettable, replace splice with push in some way
 // push questions into backup array 'backupData[]'
 
-// ----- Main Driver -----
+// ------------------------
+// ----- MAIN DRIVER --------
+// ------------------------
 var questionData = [
     {
         question: 'THIS IS QUESTION 1',
@@ -65,6 +67,12 @@ var index;
 var time = 100;
 
 
+
+if (time === 0) {
+    // INSERT TIMEOUT TEXT
+    showAnswer(index);
+}
+
 $('#start').on('click', function () {
     $('#start').remove();
     $('#title').empty();
@@ -111,19 +119,29 @@ $('#button-container').on('click', '#next-btn', function () {
     questionData.splice(index, 1);
     console.log(questionData);
 
-    // pick next question
-    index = Math.floor(Math.random() * questionData.length);
+    if (questionData.length > 0) {
+        // pick next question
+        index = Math.floor(Math.random() * questionData.length);
 
-    // render new question
-    $('#question').text(questionData[index].question);
+        // render new question
+        $('#question').text(questionData[index].question);
 
-    // render new buttons
-    getButtons();
+        // render new buttons
+        getButtons();
+    }
+
+    else {
+        $('#question').text('THE END');
+    }
 });
-//  ----- END OF DRIVER -----
 
+// ---------------------------
+// ------ END OF DRIVER --------
+// ---------------------------
 
-// FUNCTIONS
+// ---------------------------
+// ------- FUNCTIONS -----------
+// ---------------------------
 function startGame() {
     console.log("It's alive!");
     // TIMER FUNCTIONS HERE
@@ -162,10 +180,6 @@ function getButtons() {
     console.log('-- Buttons Created --')
 }
 
-
-
-
-// UNFINISHED
 function checkAnswer(buttonID, index) {
     console.log('buttonID = ' + buttonID);
     console.log('answer: ' + questionData[index].answer);
@@ -181,10 +195,11 @@ function checkAnswer(buttonID, index) {
 }
 
 function showAnswer(index) {
+    var newElement;
+
+    // empty relevent elements
     $('#question').empty();
     $('#button-container').empty();
-
-    var newElement;
 
     // create new heading
     $('#question').text('Yohhhhhh');
