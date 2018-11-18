@@ -4,13 +4,11 @@ html {
 
 body {
     background-color: rgb(51, 51, 51);
-
-    height: 100%;
 }
 
 #wrapper {
-    height: 100%;
     width: 70%;
+    height: 600px;
 
     min-width: 800px;
     min-height: 600px;
@@ -20,6 +18,8 @@ body {
 
     background-color: gainsboro;
 
+    position: absolute;
+    left: 0; right: 0;
 }
 
 #app {
@@ -29,29 +29,70 @@ body {
     min-width: 600px;
     min-height: 450px;
 
-    padding: 0;
-    margin: 0 auto;
-
     background-color: goldenrod;
+    
+
+    margin: 0 auto;
+    position: absolute;
+    left: 0; right: 0;
+
+
 }
 
 #start{
     width: 350px;
     margin: 0 auto;
+
+    position: absolute;
+    /* top = offset(400) + wrapper-padding (25)*/
+    top: 425px; left: 0; right: 0;
 }
 
 #title {
     width: 200px;
-    height: 150px;
+    height: 100px;
 
     line-height: 150px;
 }
 
-#question {
+#question-container {
     width: 500px;
     height: 300px;
+    
+    position: absolute;
+    top: 0; left: 0; right: 0;
+}
 
+#button-container {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+}
+
+#question {
     line-height: 300px;
+}
+
+#answer {
+    width: 800px;
+    height: 600px;
+
+    min-width: 600px;
+    min-height: 450px;
+
+    padding: 0;
+    margin: 0 auto;
+
+    background-color: rgba(0, 0, 0, 0.384);
+}
+
+#answer-img {
+    width: 400;
+    height: 300;
+    
+    margin: 0 auto;
+
+    position: absolute;
+    top: 25px; left: 0; right: 0;
 }
 
 .centered {
