@@ -27,6 +27,7 @@ function startGame() {
     var index;
 
     $('#start').remove();
+    $('#title').remove();
 
     // TIMER FUNCTIONS HERE
     
