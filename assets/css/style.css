@@ -45,7 +45,8 @@ body {
 
     position: absolute;
     /* top = offset(400) + wrapper-padding (25)*/
-    top: 425px; left: 0; right: 0;
+    top: 425px;
+    left: 0; right: 0;
 }
 
 #title {
@@ -57,22 +58,24 @@ body {
 
 #question-container {
     width: 500px;
-    height: 300px;
+    /* height: 300px; */
     
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0; right: 0;
 }
 
 #button-container {
     position: absolute;
-    left: 0; right: 0; bottom: 0;
+    bottom: 0;
+    left: 0; right: 0;
 }
 
 #question {
     line-height: 300px;
 }
 
-#answer {
+/* #answer {
     width: 800px;
     height: 600px;
 
@@ -83,7 +86,7 @@ body {
     margin: 0 auto;
 
     background-color: rgba(0, 0, 0, 0.384);
-}
+} */
 
 #answer-img {
     width: 400;
@@ -92,7 +95,8 @@ body {
     margin: 0 auto;
 
     position: absolute;
-    top: 25px; left: 0; right: 0;
+    bottom: 150px;
+    left: 0; right: 0;
 }
 
 .centered {
@@ -100,7 +104,7 @@ body {
     margin: 0 auto;
 }
 
-.app-buttons {
+.app-button {
     margin: 20px auto;
 
     width: 80%;

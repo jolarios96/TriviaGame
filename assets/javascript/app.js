@@ -1,7 +1,9 @@
 // This Script asks the user a random question from a list.
 // After the question is answered (right/wrong), remove that question from the list. 
-// Removal method @ checkAnswer()
+// to make resettable, replace splice with push in some way
+// push questions into backup array 'backupData[]'
 
+// ----- Main Driver -----
 var questionData = [
     {
         question: 'THIS IS QUESTION 1',
@@ -56,69 +58,103 @@ var questionData = [
     // },
 ]
 
+var backupData = [];
+
+var usrInput;
+var index;
+var time = 100;
+
 
 $('#start').on('click', function () {
     $('#start').remove();
     $('#title').empty();
+
+    // note: this function will constantly repeat itself.
+    // due to ASYNCHRONOUS nature of js
     startGame();
+
+
 })
 
+$('#button-container').on('click', '#btn-1', function () {
+    buttonID = $(this).attr('id');
+    console.log('Button Pushed: ' + buttonID);
+    checkAnswer(buttonID, index);
+});
 
-function startGame() {
-    console.log("It's alive!");
-    var usrInput;
-    var index;
+$('#button-container').on('click', '#btn-2', function () {
+    buttonID = $(this).attr('id');
+    console.log('Button Pushed: ' + buttonID);
+    checkAnswer(buttonID, index);
+});
 
-    // TIMER FUNCTIONS HERE
+$('#button-container').on('click', '#btn-3', function () {
+    buttonID = $(this).attr('id');
+    console.log('Button Pushed: ' + buttonID);
+    checkAnswer(buttonID, index);
+});
 
-    ////
+$('#button-container').on('click', '#btn-4', function () {
+    buttonID = $(this).attr('id');
+    console.log('Button Pushed: ' + buttonID);
+    checkAnswer(buttonID, index);
+});
+
+// proceed to next question
+$('#button-container').on('click', '#next-btn', function () {
+    $('#answer-img').remove();
+
+    $('#next-btn').remove();
+
+    $('#question').removeAttr('style');
+
+    questionData.splice(index, 1);
+    console.log(questionData);
+
+    // pick next question
     index = Math.floor(Math.random() * questionData.length);
-    console.log(questionData[index].question);
+
+    // render new question
     $('#question').text(questionData[index].question);
 
-
+    // render new buttons
     getButtons();
+});
+//  ----- END OF DRIVER -----
 
-    // on-click events
+
+// FUNCTIONS
+function startGame() {
+    console.log("It's alive!");
+    // TIMER FUNCTIONS HERE
+    //start timer?
+    ////
+
+    // pick question
+    index = Math.floor(Math.random() * questionData.length);
+
+    // render question
+    $('#question').text(questionData[index].question);
+
+    // render buttons
+    getButtons();
+    console.log('Question: ' + questionData[index].question);
     console.log('Waiting for button push . . .');
-    $('#button-container').on('click', '#btn-1', function () {
-        buttonID = $(this).attr('id');
-        console.log('Button Pushed: ' + buttonID);
-        checkAnswer(buttonID, index);
-    });
-
-    $('#button-container').on('click', '#btn-2', function () {
-        buttonID = $(this).attr('id');
-        console.log('Button Pushed: ' + buttonID);
-        checkAnswer(buttonID, index);
-    });
-
-    $('#button-container').on('click', '#btn-3', function () {
-        buttonID = $(this).attr('id');
-        console.log('Button Pushed: ' + buttonID);
-        checkAnswer(buttonID, index);
-    });
-
-    $('#button-container').on('click', '#btn-4', function () {
-        buttonID = $(this).attr('id');
-        console.log('Button Pushed: ' + buttonID);
-        checkAnswer(buttonID, index);
-    });
-
+    console.log('Actual Answer Is: ' + questionData[index].answer);
 }
 
 // RE-STYLE THIS:
 // make it so buttons have no background, and change color on hover.
 function getButtons() {
     console.log('Calling getButtons() -- --')
+    $('#button-container').empty();
     var newBtn;
 
     for (var i = 0; i < 4; i++) {
-        console.log('Generating button-' + (i + 1));
         newBtn = $('<button>');
-        newBtn.addClass('app-buttons centered');
+        newBtn.addClass('app-button centered');
         newBtn.attr('id', 'btn-' + (i + 1));
-        newBtn.attr('data-index', i);
+        // newBtn.attr('data-index', i);
         newBtn.text('Button-' + (i + 1));
         $('#button-container').append(newBtn);
     }
@@ -131,36 +167,38 @@ function getButtons() {
 
 // UNFINISHED
 function checkAnswer(buttonID, index) {
-    console.log('Actual Answer: ' + questionData[index].answer);
+    console.log('buttonID = ' + buttonID);
+    console.log('answer: ' + questionData[index].answer);
+    console.log(questionData);
     if (buttonID === questionData[index].answer) {
         console.log('answer correct');
-        
-
-
         showAnswer(index);
-
-        // Remove question from questionData[]
-        questionData.splice(index, 1);
-        console.log(questionData);
     }
     else {
         console.log('incorrect');
-
-
         showAnswer(index);
-
-        // Remove question from questionData[]
-        questionData.splice(index, 1);
-        console.log(questionData);
     }
 }
 
-function showAnswer(index){
+function showAnswer(index) {
     $('#question').empty();
     $('#button-container').empty();
 
-    var newImg = $('<img>')
-    newImg.attr('id', 'answer-img');
-    newImg.attr('src', questionData[index].img)
-    $('#app').append(newImg);
+    var newElement;
+
+    // create new heading
+    $('#question').text('Yohhhhhh');
+    $('#question').css('line-height', '170px');
+
+    // create new image
+    newElement = $('<img>')
+    newElement.attr('id', 'answer-img');
+    newElement.attr('src', questionData[index].img)
+    $('#app').append(newElement);
+
+    // create new button
+    newElement = $('<button>').text('Next Question!');
+    newElement.attr('id', 'next-btn')
+    newElement.addClass('app-button centered')
+    $('#button-container').append(newElement);
 }
