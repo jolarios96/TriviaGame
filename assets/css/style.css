@@ -44,8 +44,7 @@ body {
     margin: 0 auto;
 
     position: absolute;
-    /* top = offset(400) + wrapper-padding (25)*/
-    top: 425px;
+    bottom: 130px;
     left: 0; right: 0;
 }
 

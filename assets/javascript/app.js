@@ -13,10 +13,10 @@ var questionData = [
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
-            'Choice 1',
-            'Choice 2',
-            'Choice 3',
-            'Choice 4',
+            'Q1 - Choice 1',
+            'Q1 - Choice 2',
+            'Q1 - Choice 3',
+            'Q1 - Choice 4',
         ],
     },
 
@@ -26,10 +26,10 @@ var questionData = [
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
-            'Choice 1',
-            'Choice 2',
-            'Choice 3',
-            'Choice 4',
+            'Q2 - Choice 1',
+            'Q2 - Choice 2',
+            'Q2 - Choice 3',
+            'Q2 - Choice 4',
         ],
     },
     {
@@ -38,10 +38,10 @@ var questionData = [
         img: 'https://via.placeholder.com/400x300',
 
         choices:[
-            'Choice 1',
-            'Choice 2',
-            'Choice 3',
-            'Choice 4',
+            'Q3 - Choice 1',
+            'Q3 - Choice 2',
+            'Q3 - Choice 3',
+            'Q3 - Choice 4',
         ],
     },
     {
@@ -50,10 +50,10 @@ var questionData = [
         img: 'https://via.placeholder.com/400x300',
 
         choices:[
-            'Choice 1',
-            'Choice 2',
-            'Choice 3',
-            'Choice 4',
+            'Q4 - Choice 1',
+            'Q4 - Choice 2',
+            'Q4 - Choice 3',
+            'Q4 - Choice 4',
         ],
     },
     {
@@ -62,10 +62,10 @@ var questionData = [
         img: 'https://via.placeholder.com/400x300',
 
         choices:[
-            'Choice 1',
-            'Choice 2',
-            'Choice 3',
-            'Choice 4',
+            'Q5 - Choice 1',
+            'Q5 - Choice 2',
+            'Q5 - Choice 3',
+            'Q5 - Choice 4',
         ],
     },
     // {
@@ -96,7 +96,7 @@ var questionData = [
     //     img: 'https://via.placeholder.com/400x300'
     // },
 ]
-var backupData = [];
+var backupData = questionData.slice();
 var usrInput;
 var index;
 var time = 100;
@@ -108,15 +108,11 @@ if (time === 0) {
     showAnswer(index);
 }
 
-$('#start').on('click', function () {
-    $('#start').remove();
+$('#button-container').on('click', '#start', function () {
+    $('#app').remove('#start');
     $('#title').empty();
 
-    // note: this function will constantly repeat itself.
-    // due to ASYNCHRONOUS nature of js
     startGame();
-
-
 })
 
 $('#button-container').on('click', '#btn-1', function () {
@@ -152,7 +148,6 @@ $('#button-container').on('click', '#next-btn', function () {
     $('#question').removeAttr('style');
 
     questionData.splice(index, 1);
-    console.log(questionData);
 
     if (questionData.length > 0) {
         // pick next question
@@ -167,8 +162,34 @@ $('#button-container').on('click', '#next-btn', function () {
 
     else {
         $('#question').text('THE END');
+
+        var newElement = $('<button>');
+        newElement.attr('id', 'reset-btn');
+        newElement.addClass('centered');
+        newElement.text('Play Again?');
+
+        $('#button-container').append(newElement);
+
         console.log('No More Questions!')
     }
+
+    //reset data, go back to start
+    $('#app').on('click', '#reset-btn', function () {
+        console.log('resetting')
+        questionData = backupData.slice();
+        console.log(questionData);
+        console.log(backupData);
+        $('#question').empty();
+        $('#button-container').empty();
+
+        var newElement = $('<button>');
+        newElement.attr('id', 'start');
+        newElement.addClass('centered');
+        newElement.text('Start');
+
+        $('#button-container').append(newElement);
+
+    });
 });
 
 // ####### ##     ## ######     ####### #######    #######  #######  #### ##    ## ####### #######  
@@ -196,7 +217,6 @@ function startGame() {
     getButtons(index);
     console.log('Question: ' + questionData[index].question);
     console.log('Waiting for button push . . .');
-    console.log('Actual Answer Is: ' + questionData[index].answer);
 }
 
 // RE-STYLE THIS:
@@ -221,8 +241,7 @@ function getButtons(index) {
 
 function checkAnswer(buttonID, index) {
     console.log('buttonID = ' + buttonID);
-    console.log('answer: ' + questionData[index].answer);
-    console.log(questionData);
+    console.log('answer was: ' + questionData[index].answer);
     if (buttonID === questionData[index].answer) {
         console.log('answer correct');
         showAnswer(index);
