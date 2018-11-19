@@ -37,7 +37,7 @@ var questionData = [
         answer: 'btn-3',
         img: 'https://via.placeholder.com/400x300',
 
-        choices:[
+        choices: [
             'Q3 - Choice 1',
             'Q3 - Choice 2',
             'Q3 - Choice 3',
@@ -49,7 +49,7 @@ var questionData = [
         answer: 'btn-4',
         img: 'https://via.placeholder.com/400x300',
 
-        choices:[
+        choices: [
             'Q4 - Choice 1',
             'Q4 - Choice 2',
             'Q4 - Choice 3',
@@ -61,40 +61,13 @@ var questionData = [
         answer: 'btn-1',
         img: 'https://via.placeholder.com/400x300',
 
-        choices:[
+        choices: [
             'Q5 - Choice 1',
             'Q5 - Choice 2',
             'Q5 - Choice 3',
             'Q5 - Choice 4',
         ],
     },
-    // {
-    //     question: 'THIS IS QUESTION 6',
-    //     answer: 'btn-2',
-    //     img: 'https://via.placeholder.com/400x300',
-    //
-    //      
-    // },
-    // {
-    //     question: 'THIS IS QUESTION 7',
-    //     answer: 'btn-3',
-    //     img: 'https://via.placeholder.com/400x300'
-    // },
-    // {
-    //     question: 'THIS IS QUESTION 8',
-    //     answer: 'btn-4',
-    //     img: 'https://via.placeholder.com/400x300'
-    // },
-    // {
-    //     question: 'THIS IS QUESTION 9',
-    //     answer: 'btn-1',
-    //     img: 'https://via.placeholder.com/400x300'
-    // },
-    // {
-    //     question: 'THIS IS QUESTION 10',
-    //     answer: 'btn-2',
-    //     img: 'https://via.placeholder.com/400x300'
-    // },
 ]
 var backupData = questionData.slice();
 var usrInput;
@@ -108,8 +81,8 @@ if (time === 0) {
     showAnswer(index);
 }
 
-$('#button-container').on('click', '#start', function () {
-    $('#app').remove('#start');
+$('#button-container').on('click', '#start-btn', function () {
+    $('#app').remove('#start-btn');
     $('#title').empty();
 
     startGame();
@@ -172,24 +145,31 @@ $('#button-container').on('click', '#next-btn', function () {
 
         console.log('No More Questions!')
     }
+});
 
-    //reset data, go back to start
-    $('#app').on('click', '#reset-btn', function () {
-        console.log('resetting')
-        questionData = backupData.slice();
-        console.log(questionData);
-        console.log(backupData);
-        $('#question').empty();
-        $('#button-container').empty();
 
-        var newElement = $('<button>');
-        newElement.attr('id', 'start');
-        newElement.addClass('centered');
-        newElement.text('Start');
+//reset data, go back to start
 
-        $('#button-container').append(newElement);
+$('#button-container').on('click', '#reset-btn', function () {
+    console.log('resetting');
 
-    });
+    questionData = backupData.slice();
+
+    console.log(questionData);
+    console.log(backupData);
+
+    $('#question').empty();
+
+    $('#title').text('Title');
+
+    $('#button-container').empty();
+
+    var newElement = $('<button>');
+    newElement.attr('id', 'start-btn');
+    newElement.addClass('centered');
+    newElement.text('Start Game');
+
+    $('#button-container').append(newElement);
 });
 
 // ####### ##     ## ######     ####### #######    #######  #######  #### ##    ## ####### #######  
@@ -204,7 +184,7 @@ $('#button-container').on('click', '#next-btn', function () {
 function startGame() {
     console.log("It's alive!");
     // TIMER FUNCTIONS HERE
-    //start timer?
+    //start timer
     ////
 
     // pick question
@@ -231,7 +211,7 @@ function getButtons(index) {
         newBtn.addClass('app-button centered');
         newBtn.attr('id', 'btn-' + (i + 1));
 
-        // newBtn.attr('data-index', i);
+        // get choices for buttons
         newBtn.text(questionData[index].choices[i]);
         $('#button-container').append(newBtn);
     }
@@ -255,7 +235,7 @@ function checkAnswer(buttonID, index) {
 function showAnswer(index) {
     var newElement;
 
-    // empty relevent elements
+    // empty relevent container elements
     $('#question').empty();
     $('#button-container').empty();
 

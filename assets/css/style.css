@@ -39,7 +39,7 @@ body {
 
 }
 
-#start{
+#start-btn {
     width: 350px;
     margin: 0 auto;
 
@@ -95,6 +95,15 @@ body {
 
     position: absolute;
     bottom: 150px;
+    left: 0; right: 0;
+}
+
+#reset-btn {
+    width: 350px;
+    margin: 0 auto;
+
+    position: absolute;
+    bottom: 130px;
     left: 0; right: 0;
 }
 
