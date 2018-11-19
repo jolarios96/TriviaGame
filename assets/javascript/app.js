@@ -69,24 +69,55 @@ var questionData = [
         ],
     },
 ]
+
+var intervalID;
+var timerActive = false;
+
+var timer = {
+    time: 20,
+    timeout: false,
+
+    start: function () {
+        if (!timerActive) {
+            timerActive = true;
+            time = 20;
+            timeout = false;
+            intervalID = setInterval(timer.count, 1000);
+        };
+    },
+
+    stop: function () {
+        clearInterval(intervalID);
+        timerActive = false;
+        timeout = true;
+    },
+
+    count: function () {
+        if (timer.time > 0) {
+            // do something
+            timer.time--
+            console.log(timer.time);
+        }
+        else {
+            timer.stop();
+            return;
+        };
+    },
+};
+
 var backupData = questionData.slice();
 var usrInput;
 var index;
-var time = 100;
 
-
-
-if (time === 0) {
-    // INSERT TIMEOUT TEXT
-    showAnswer(index);
-}
 
 $('#button-container').on('click', '#start-btn', function () {
     $('#app').remove('#start-btn');
     $('#title').empty();
 
     startGame();
-})
+
+    timer.start();
+});
 
 $('#button-container').on('click', '#btn-1', function () {
     buttonID = $(this).attr('id');
@@ -131,6 +162,9 @@ $('#button-container').on('click', '#next-btn', function () {
 
         // render new buttons
         getButtons(index);
+
+        // start timer
+        timer.start();
     }
 
     else {
@@ -183,9 +217,6 @@ $('#button-container').on('click', '#reset-btn', function () {
 // ---------------------------
 function startGame() {
     console.log("It's alive!");
-    // TIMER FUNCTIONS HERE
-    //start timer
-    ////
 
     // pick question
     index = Math.floor(Math.random() * questionData.length);
@@ -198,6 +229,7 @@ function startGame() {
     console.log('Question: ' + questionData[index].question);
     console.log('Waiting for button push . . .');
 }
+
 
 // RE-STYLE THIS:
 // make it so buttons have no background, and change color on hover.
