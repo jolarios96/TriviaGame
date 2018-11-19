@@ -10,33 +10,70 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 1',
         answer: 'btn-1',
-        img: 'https://via.placeholder.com/400x300'
+        img: 'https://via.placeholder.com/400x300',
+
+        choices: [
+            'Choice 1',
+            'Choice 2',
+            'Choice 3',
+            'Choice 4',
+        ],
     },
 
     {
         question: 'THIS IS QUESTION 2',
         answer: 'btn-2',
-        img: 'https://via.placeholder.com/400x300'
+        img: 'https://via.placeholder.com/400x300',
+
+        choices: [
+            'Choice 1',
+            'Choice 2',
+            'Choice 3',
+            'Choice 4',
+        ],
     },
     {
         question: 'THIS IS QUESTION 3',
         answer: 'btn-3',
-        img: 'https://via.placeholder.com/400x300'
+        img: 'https://via.placeholder.com/400x300',
+
+        choices:[
+            'Choice 1',
+            'Choice 2',
+            'Choice 3',
+            'Choice 4',
+        ],
     },
     {
         question: 'THIS IS QUESTION 4',
         answer: 'btn-4',
-        img: 'https://via.placeholder.com/400x300'
+        img: 'https://via.placeholder.com/400x300',
+
+        choices:[
+            'Choice 1',
+            'Choice 2',
+            'Choice 3',
+            'Choice 4',
+        ],
     },
     {
         question: 'THIS IS QUESTION 5',
         answer: 'btn-1',
-        img: 'https://via.placeholder.com/400x300'
+        img: 'https://via.placeholder.com/400x300',
+
+        choices:[
+            'Choice 1',
+            'Choice 2',
+            'Choice 3',
+            'Choice 4',
+        ],
     },
     // {
     //     question: 'THIS IS QUESTION 6',
     //     answer: 'btn-2',
-    //     img: 'https://via.placeholder.com/400x300'
+    //     img: 'https://via.placeholder.com/400x300',
+    //
+    //      
     // },
     // {
     //     question: 'THIS IS QUESTION 7',
@@ -59,9 +96,7 @@ var questionData = [
     //     img: 'https://via.placeholder.com/400x300'
     // },
 ]
-
 var backupData = [];
-
 var usrInput;
 var index;
 var time = 100;
@@ -127,17 +162,20 @@ $('#button-container').on('click', '#next-btn', function () {
         $('#question').text(questionData[index].question);
 
         // render new buttons
-        getButtons();
+        getButtons(index);
     }
 
     else {
         $('#question').text('THE END');
+        console.log('No More Questions!')
     }
 });
 
-// ---------------------------
-// ------ END OF DRIVER --------
-// ---------------------------
+// ####### ##     ## ######     ####### #######    #######  #######  #### ##    ## ####### #######  
+// ##      ###    ## ##    ##   ##   ## ##         ##     # ##   ##   ##  ##    ## ##      ##    ## 
+// #####   ## ##  ## ##    ##   ##   ## #####      ##     # ######    ##  ##    ## #####   ######  
+// ##      ##   #### ##    ##   ##   ## ##         ##     # ##   ##   ##   ##  ##  ##      ##   ##  
+// ####### ##     ## ######     ####### ##         #######  ##    ## ####   ####   ####### ##    ##                                                                    
 
 // ---------------------------
 // ------- FUNCTIONS -----------
@@ -155,7 +193,7 @@ function startGame() {
     $('#question').text(questionData[index].question);
 
     // render buttons
-    getButtons();
+    getButtons(index);
     console.log('Question: ' + questionData[index].question);
     console.log('Waiting for button push . . .');
     console.log('Actual Answer Is: ' + questionData[index].answer);
@@ -163,7 +201,7 @@ function startGame() {
 
 // RE-STYLE THIS:
 // make it so buttons have no background, and change color on hover.
-function getButtons() {
+function getButtons(index) {
     console.log('Calling getButtons() -- --')
     $('#button-container').empty();
     var newBtn;
@@ -172,8 +210,9 @@ function getButtons() {
         newBtn = $('<button>');
         newBtn.addClass('app-button centered');
         newBtn.attr('id', 'btn-' + (i + 1));
+
         // newBtn.attr('data-index', i);
-        newBtn.text('Button-' + (i + 1));
+        newBtn.text(questionData[index].choices[i]);
         $('#button-container').append(newBtn);
     }
 
