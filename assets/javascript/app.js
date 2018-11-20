@@ -272,6 +272,7 @@ function getButtons(index) {
 function checkAnswer(buttonID, index) {
     console.log('buttonID = ' + buttonID);
     console.log('answer was: ' + ' '+ questionData[index].answer);
+    
     if (buttonID === questionData[index].answer) {
         console.log('answer Counter = 0');
         correctCounter++;
@@ -308,7 +309,7 @@ function showAnswer(index) {
     $('#button-container').empty();
 
     // create new heading
-    $('#question').text('Answer Was:' + questionData[index].choices[questionData[index].answerID]);
+    $('#question').text('Answer Was: ' + questionData[index].choices[questionData[index].answerID]);
     $('#question').css('line-height', '170px');
 
     $('#answer-img').attr('src', questionData[index].img)
