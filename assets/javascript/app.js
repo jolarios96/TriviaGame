@@ -3,72 +3,74 @@
 
 var questionData = [
     {
-        question: 'THIS IS QUESTION 1',
+        question: 'How many cards are there in a brand new deck?',
         answer: 'btn-1',
         answerID: 0,
-        img: 'https://via.placeholder.com/400x300',
+        img: 'assets/images/www.maxpixel.net-Joker-Bicycle-Deck-Magic-Cards-Card-Magic-913191.jpg',
 
         choices: [
-            'Q1 - Choice 1',
-            'Q1 - Choice 2',
-            'Q1 - Choice 3',
-            'Q1 - Choice 4',
+            '54',
+            '52',
+            '53',
+            '48',
         ],
     },
 
     {
-        question: 'THIS IS QUESTION 2',
+        question: "Which of these is NOT a mammal?",
         answer: 'btn-2',
         answerID: 1,
-        img: 'https://via.placeholder.com/400x300',
+        img: 'assets/images/tenor.gif',
 
         choices: [
-            'Q2 - Choice 1',
-            'Q2 - Choice 2',
-            'Q2 - Choice 3',
-            'Q2 - Choice 4',
+            'Dolphin',
+            'Sponge',
+            'Whale',
+            'Seal',
         ],
     },
     {
-        question: 'THIS IS QUESTION 3',
+        question: 'Which of the following does not exist?',
         answer: 'btn-3',
         answerID: 2,
-        img: 'https://via.placeholder.com/400x300',
+        img: 'assets/images/1778904004_4229768fc6_z.jpg',
 
         choices: [
-            'Q3 - Choice 1',
-            'Q3 - Choice 2',
-            'Q3 - Choice 3',
-            'Q3 - Choice 4',
+            'Dormouse',
+            'Narwhal',
+            'Jackalope',
+            'Fennec Fox',
         ],
     },
     {
-        question: 'THIS IS QUESTION 4',
+        question: 'The answer is Coffee!',
         answer: 'btn-4',
         answerID: 3,
-        img: 'https://via.placeholder.com/400x300',
+        img: 'assets/images/black-coffee-1509456493isC.jpg',
 
         choices: [
-            'Q4 - Choice 1',
-            'Q4 - Choice 2',
-            'Q4 - Choice 3',
-            'Q4 - Choice 4',
+            'Not Coffee',
+            'Not Coffee',
+            'Not Coffee',
+            'Coffee',
         ],
-    },
-    {
-        question: 'THIS IS QUESTION 5',
-        answer: 'btn-1',
-        answerID: 0,
-        img: 'https://via.placeholder.com/400x300',
+    // },
+    // {
+    //     question: 'THIS IS QUESTION 5',
+    //     answer: 'btn-1',
+    //     answerID: 0,
+    //     img: 'https://via.placeholder.com/400x300',
 
-        choices: [
-            'Q5 - Choice 1',
-            'Q5 - Choice 2',
-            'Q5 - Choice 3',
-            'Q5 - Choice 4',
-        ],
-    },
+    //     choices: [
+    //         'Q5 - Choice 1',
+    //         'Q5 - Choice 2',
+    //         'Q5 - Choice 3',
+    //         'Q5 - Choice 4',
+    //     ],
+    // },
 ]
+
+var backupData = questionData.slice();
 
 var timerInterval;
 var barInterval;
@@ -114,10 +116,9 @@ var timer = {
     },
 };
 
-var backupData = questionData.slice();
 var usrInput;
 var index;
-
+var correctCounter = 0;
 
 $('#button-container').on('click', '#start-btn', function () {
     $('#app').remove('#start-btn');
@@ -182,12 +183,12 @@ $('#button-container').on('click', '#next-btn', function () {
     }
 
     else {
-        $('#question').text('THE END');
+        $('#question').text('You got ' + correctCounter + ' of ' + backupData.length + ' correct!');
 
         var newElement = $('<button>');
         newElement.attr('id', 'reset-btn');
         newElement.addClass('centered');
-        newElement.text('Play Again?');
+        newElement.text('Return to Menu');
 
         $('#button-container').append(newElement);
 
@@ -204,6 +205,8 @@ $('#button-container').on('click', '#timeout-btn', function () {
 $('#button-container').on('click', '#reset-btn', function () {
     console.log('resetting');
 
+    correctCounter = 0;
+
     questionData = backupData.slice();
 
     console.log(questionData);
@@ -211,7 +214,7 @@ $('#button-container').on('click', '#reset-btn', function () {
 
     $('#question').empty();
 
-    $('#question').text('Title');
+    $('#question').text('Open-ended Trivia!');
 
     $('#button-container').empty();
 
@@ -268,9 +271,10 @@ function getButtons(index) {
 
 function checkAnswer(buttonID, index) {
     console.log('buttonID = ' + buttonID);
-    console.log('answer was: ' + questionData[index].answer);
+    console.log('answer was: ' + ' '+ questionData[index].answer);
     if (buttonID === questionData[index].answer) {
-        console.log('answer correct');
+        console.log('answer Counter = 0');
+        correctCounter++;
         showAnswer(index);
     }
     else {
@@ -304,7 +308,7 @@ function showAnswer(index) {
     $('#button-container').empty();
 
     // create new heading
-    $('#question').text('Answer Was:' + '\n' + questionData[index].choices[questionData[index].answerID]);
+    $('#question').text('Answer Was:' + questionData[index].choices[questionData[index].answerID]);
     $('#question').css('line-height', '170px');
 
     $('#answer-img').attr('src', questionData[index].img)

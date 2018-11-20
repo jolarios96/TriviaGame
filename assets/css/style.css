@@ -4,7 +4,9 @@ html {
 
 body {
     /* background-color: rgb(51, 51, 51); */
-    background-image: linear-gradient(rgb(88, 88, 88), rgb(100, 0, 214),rgb(66, 198, 221));
+    background-image: linear-gradient(rgb(71, 71, 71), rgb(173, 39, 214), rgb(0, 92, 167));
+
+    /* background-image: linear-gradient(rgba(88, 88, 88, 0.700), rgba(100, 0, 214, 0.664),rgba(66, 198, 221, 700)); */
     
 }
 
@@ -14,13 +16,14 @@ button {
 
 #wrapper {
     width: 70%;
-    min-width: 820px;
+    /* min-width: 100%; */
+    min-height: 100%;
     
     padding: 25px 0;
     margin: 50px auto;
 
     /* background-color: rgba(0, 0, 0, 0.644); */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.700), rgba(0, 0, 0, 0.664), rgb(0, 0, 0, 700));
+    /* background-image: linear-gradient(rgba(0, 0, 0, 0.700), rgba(0, 0, 0, 0.664), rgb(0, 0, 0, 700)); */
 
 
     position: relative;
@@ -30,10 +33,10 @@ button {
     width: 1000px;
     height: 700px;
 
-    min-width: 600px;
-    min-height: 450px;
+    min-width: 100px;
+    min-height: 700px;
 
-    background-color: rgb(141, 141, 141);
+    background-color: rgb(160, 160, 160);
     
     border: solid 5px rgb(51, 51, 51);
 
@@ -116,10 +119,10 @@ button {
 }
 
 #answer-img {
-    width: 400;
-    height: 300;
     
     margin: 0 auto;
+
+    min-width: 500;
 
     z-index: 2;
 
