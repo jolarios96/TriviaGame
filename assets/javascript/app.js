@@ -54,7 +54,7 @@ var questionData = [
             'Not Coffee',
             'Coffee',
         ],
-    // },
+    },
     // {
     //     question: 'THIS IS QUESTION 5',
     //     answer: 'btn-1',
