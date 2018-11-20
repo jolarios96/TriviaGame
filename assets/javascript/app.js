@@ -1,8 +1,5 @@
 // This Script asks the user a random question from a list.
 // After the question is answered (right/wrong), remove that question from the list. 
-// to make resettable, replace splice with push in some way
-// push questions into backup array 'backupData[]'
-
 // ------------------------
 // ----- MAIN DRIVER --------
 // ------------------------
@@ -10,6 +7,7 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 1',
         answer: 'btn-1',
+        answerID: 0,
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
@@ -23,6 +21,7 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 2',
         answer: 'btn-2',
+        answerID: 1,
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
@@ -35,6 +34,7 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 3',
         answer: 'btn-3',
+        answerID: 2,
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
@@ -47,6 +47,7 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 4',
         answer: 'btn-4',
+        answerID: 3,
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
@@ -59,6 +60,7 @@ var questionData = [
     {
         question: 'THIS IS QUESTION 5',
         answer: 'btn-1',
+        answerID: 0,
         img: 'https://via.placeholder.com/400x300',
 
         choices: [
@@ -70,33 +72,47 @@ var questionData = [
     },
 ]
 
-var intervalID;
+var timerInterval;
+var barInterval;
 
 var timer = {
-    time: 10,
-    timeout: false,
+    time: 9,
 
     start: function () {
-        timer.time = 10;
-        timer.timeout = false;
+        var started = false;
+        timer.time = 9;
 
-        intervalID = setInterval(function () {
+        timerInterval = setInterval(function () {
             console.log(timer.time);
+            $('#timer').text(timer.time);
+            if (!started) {
+                started = true;
+                timer.displayBar();
+            }
             if (timer.time > 0) {
-                // do something
                 timer.time--
             }
             else {
-                showAnswer(index);
+                showTimeout();
                 timer.stop();
             }
         }, 1000);
     },
 
+    displayBar: function () {
+        var length = 800;
+        barInterval = setInterval(function () {
+            length--;
+            $('#progress-bar').css('width', length);
+        }, 10);
+    },
+
     stop: function () {
-        clearInterval(intervalID);
-        timer.time = 10;
-        timer.timeout = true;
+        $('#timer').text('');
+        clearInterval(timerInterval);
+        clearInterval(barInterval);
+        $('#progress-bar').css('width', '100%');
+        timer.time = 9;
     },
 };
 
@@ -107,11 +123,11 @@ var index;
 
 $('#button-container').on('click', '#start-btn', function () {
     $('#app').remove('#start-btn');
-    $('#title').empty();
-
-    startGame();
+    $('#question').empty();
 
     timer.start();
+    startGame();
+
 });
 
 $('#button-container').on('click', '#btn-1', function () {
@@ -144,12 +160,13 @@ $('#button-container').on('click', '#btn-4', function () {
 
 // proceed to next question
 $('#button-container').on('click', '#next-btn', function () {
-    $('#answer-img').remove();
+    $('#answer-img').removeAttr('src');
 
     $('#next-btn').remove();
 
     $('#question').removeAttr('style');
 
+    // remove used question from questionData[]
     questionData.splice(index, 1);
 
     if (questionData.length > 0) {
@@ -176,13 +193,16 @@ $('#button-container').on('click', '#next-btn', function () {
 
         $('#button-container').append(newElement);
 
-        console.log('No More Questions!')
-    }
+        console.log('No More Questions!');
+    };
+});
+
+$('#button-container').on('click', '#timeout-btn', function () {
+    showAnswer(index);
 });
 
 
 //reset data, go back to start
-
 $('#button-container').on('click', '#reset-btn', function () {
     console.log('resetting');
 
@@ -193,7 +213,7 @@ $('#button-container').on('click', '#reset-btn', function () {
 
     $('#question').empty();
 
-    $('#title').text('Title');
+    $('#question').text('Title');
 
     $('#button-container').empty();
 
@@ -204,6 +224,7 @@ $('#button-container').on('click', '#reset-btn', function () {
 
     $('#button-container').append(newElement);
 });
+
 
 // ####### ##     ## ######     ####### #######    #######  #######  #### ##    ## ####### #######  
 // ##      ###    ## ##    ##   ##   ## ##         ##     # ##   ##   ##  ##    ## ##      ##    ## 
@@ -227,13 +248,13 @@ function startGame() {
     getButtons(index);
     console.log('Question: ' + questionData[index].question);
     console.log('Waiting for button push . . .');
-}
+};
 
 
 // RE-STYLE THIS:
 // make it so buttons have no background, and change color on hover.
 function getButtons(index) {
-    console.log('Calling getButtons() -- --')
+    console.log('Calling getButtons() -- --');
     $('#button-container').empty();
     var newBtn;
 
@@ -245,10 +266,10 @@ function getButtons(index) {
         // get choices for buttons
         newBtn.text(questionData[index].choices[i]);
         $('#button-container').append(newBtn);
-    }
+    };
 
     console.log('-- Buttons Created --')
-}
+};
 
 function checkAnswer(buttonID, index) {
     console.log('buttonID = ' + buttonID);
@@ -260,8 +281,25 @@ function checkAnswer(buttonID, index) {
     else {
         console.log('incorrect');
         showAnswer(index);
-    }
-}
+    };
+};
+
+function showTimeout() {
+    var newElement;
+
+    // empty relevent container elements
+    $('#question').empty();
+    $('#button-container').empty();
+
+    $('#question').text("Time's Up!");
+    $('#question').css('line-height', '170px');
+
+    // create new button
+    newElement = $('<button>').text('See Answer');
+    newElement.attr('id', 'timeout-btn')
+    newElement.addClass('app-button centered')
+    $('#button-container').append(newElement);
+};
 
 function showAnswer(index) {
     var newElement;
@@ -271,18 +309,14 @@ function showAnswer(index) {
     $('#button-container').empty();
 
     // create new heading
-    $('#question').text('Yohhhhhh');
+    $('#question').text('Answer Was:' + '\n' + questionData[index].choices[questionData[index].answerID]);
     $('#question').css('line-height', '170px');
 
-    // create new image
-    newElement = $('<img>')
-    newElement.attr('id', 'answer-img');
-    newElement.attr('src', questionData[index].img)
-    $('#app').append(newElement);
+    $('#answer-img').attr('src', questionData[index].img)
 
     // create new button
     newElement = $('<button>').text('Next Question!');
     newElement.attr('id', 'next-btn')
     newElement.addClass('app-button centered')
     $('#button-container').append(newElement);
-}
+};

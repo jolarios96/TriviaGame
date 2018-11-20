@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <Title>Trivia Game</Title>
     <meta charset='UTF-8'>
 
     <link rel='stylesheet' type='text/css' href='assets/css/reset.css'>
@@ -11,17 +12,22 @@
 <body>
     <div id='wrapper'>
         <div id='app'>
-            <h1 id='title' class='centered'>Title</h1>
 
             <div id='question-container' class='centered'>
-                <h1 id='question'></h1>
+                <h1 id='question' class='centered'>Title</h1>
             </div>
 
-            <div id='button-container'>
+            <div id='timer-container' class='centered'>
+                <h2 id='timer'></h2>
+            </div>
+            <div id='progress-bar'></div>
+
+            <div id='button-container' class='centered'>
                 <button id='start-btn' class='centered'>Start Game</button>
             </div>
-        </div>
 
+            <img id='answer-img' class='centered'>
+        </div>
     </div>
 
     <!-- jQuery -->
