@@ -1,8 +1,6 @@
 // This Script asks the user a random question from a list.
 // After the question is answered (right/wrong), remove that question from the list. 
-// ------------------------
-// ----- MAIN DRIVER --------
-// ------------------------
+
 var questionData = [
     {
         question: 'THIS IS QUESTION 1',
@@ -100,11 +98,11 @@ var timer = {
     },
 
     displayBar: function () {
-        var length = 800;
+        var length = 1000;
         barInterval = setInterval(function () {
             length--;
             $('#progress-bar').css('width', length);
-        }, 10);
+        }, 8);
     },
 
     stop: function () {
@@ -250,9 +248,6 @@ function startGame() {
     console.log('Waiting for button push . . .');
 };
 
-
-// RE-STYLE THIS:
-// make it so buttons have no background, and change color on hover.
 function getButtons(index) {
     console.log('Calling getButtons() -- --');
     $('#button-container').empty();
