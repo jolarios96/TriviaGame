@@ -71,37 +71,32 @@ var questionData = [
 ]
 
 var intervalID;
-var timerActive = false;
 
 var timer = {
-    time: 20,
+    time: 10,
     timeout: false,
 
     start: function () {
-        if (!timerActive) {
-            timerActive = true;
-            time = 20;
-            timeout = false;
-            intervalID = setInterval(timer.count, 1000);
-        };
+        timer.time = 10;
+        timer.timeout = false;
+
+        intervalID = setInterval(function () {
+            console.log(timer.time);
+            if (timer.time > 0) {
+                // do something
+                timer.time--
+            }
+            else {
+                showAnswer(index);
+                timer.stop();
+            }
+        }, 1000);
     },
 
     stop: function () {
         clearInterval(intervalID);
-        timerActive = false;
-        timeout = true;
-    },
-
-    count: function () {
-        if (timer.time > 0) {
-            // do something
-            timer.time--
-            console.log(timer.time);
-        }
-        else {
-            timer.stop();
-            return;
-        };
+        timer.time = 10;
+        timer.timeout = true;
     },
 };
 
@@ -123,24 +118,28 @@ $('#button-container').on('click', '#btn-1', function () {
     buttonID = $(this).attr('id');
     console.log('Button Pushed: ' + buttonID);
     checkAnswer(buttonID, index);
+    timer.stop();
 });
 
 $('#button-container').on('click', '#btn-2', function () {
     buttonID = $(this).attr('id');
     console.log('Button Pushed: ' + buttonID);
     checkAnswer(buttonID, index);
+    timer.stop();
 });
 
 $('#button-container').on('click', '#btn-3', function () {
     buttonID = $(this).attr('id');
     console.log('Button Pushed: ' + buttonID);
     checkAnswer(buttonID, index);
+    timer.stop();
 });
 
 $('#button-container').on('click', '#btn-4', function () {
     buttonID = $(this).attr('id');
     console.log('Button Pushed: ' + buttonID);
     checkAnswer(buttonID, index);
+    timer.stop();
 });
 
 // proceed to next question
